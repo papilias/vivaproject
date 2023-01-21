@@ -7,12 +7,10 @@ resources:
 variables:
   tag: '$(Build.BuildId)'
 
-  displayName: 'Build and Push Docker Images'
+- task: DockerCompose@0
   inputs:
-    command: 'buildAndPush'
-    containerRegistry: 'VivaWalletProjects'
-    repository: 'vivawalletproject' 
-    tags: 
-      user-service:$(Build.BuildId)
-      order-service:$(Build.BuildId)
-      payment-service:$(Build.BuildId)
+    containerregistrytype: 'Container Registry'
+    dockerRegistryEndpoint: 'VivaWalletProjects'
+    dockerComposeFile: 
+    action: 'Build services'
+
