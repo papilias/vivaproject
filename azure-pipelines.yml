@@ -23,7 +23,7 @@
 trigger:
 - master
 
-resources::
+resources:
   repo: self
 
 pool:
