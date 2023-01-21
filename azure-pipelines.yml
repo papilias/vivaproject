@@ -4,11 +4,9 @@ trigger:
 resources:
 - repo: self
 
-pool:
-  vmImage: 'Ubuntu-latest'
+variables:
+  tag: '$(Build.BuildId)'
 
-steps:
-- task: Docker@2
   displayName: 'Build and Push Docker Images'
   inputs:
     command: 'buildAndPush'
@@ -18,4 +16,3 @@ steps:
       user-service:$(Build.BuildId)
       order-service:$(Build.BuildId)
       payment-service:$(Build.BuildId)
-
