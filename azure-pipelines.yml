@@ -12,10 +12,3 @@ steps:
   inputs:
     containerRegistry: 'VivaWalletProjects'
     command: 'login'
-
-- task: Docker@2
-      inputs:
-        containerRegistry: 'VivaWalletProjects'
-        repository: 'vivawalletproject'
-        command: 'build'
-        Dockerfile: '**/Dockerfile'
