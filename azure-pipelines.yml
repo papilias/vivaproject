@@ -5,7 +5,7 @@ resources:
 - repo: self
 
 pool:
-  vmImage: 'Ubuntu-16.04'
+  vmImage: 'Ubuntu-latest'
 
 steps:
 - task: Docker@2
@@ -18,12 +18,4 @@ steps:
       user-service:$(Build.BuildId)
       order-service:$(Build.BuildId)
       payment-service:$(Build.BuildId)
-- task: KubernetesManifest@0
-  displayName: 'Deploy to Kubernetes'
-  inputs:
-    command: 'apply'
-    manifests: |
-      k8s/user-service.yaml
-      k8s/order-service.yaml
-      k8s/payment-service.yaml
 
