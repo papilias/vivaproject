@@ -24,7 +24,7 @@ trigger:
 - master
 
 resources:
-  repo: self
+- repo: self
 
 pool:
   vmImage: 'Ubuntu-16.04'
