@@ -23,6 +23,8 @@
 trigger:
 - master
 
+resources: self
+
 pool:
   vmImage: 'Ubuntu-16.04'
 
