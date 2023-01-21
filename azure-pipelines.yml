@@ -31,7 +31,8 @@ steps:
   displayName: 'Build and Push Docker Images'
   inputs:
     command: 'buildAndPush'
-    containerRegistry: 'ipapadod/vivawalletproject' 
+    containerRegistry: 'ipapadod'
+    repository: 'vivawalletproject' 
     tags: |
       user-service:$(Build.BuildId)
       order-service:$(Build.BuildId)
