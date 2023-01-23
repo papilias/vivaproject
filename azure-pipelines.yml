@@ -1,14 +1,59 @@
 trigger:
-- master
+- main
 
-resources:
-- repo: self
+stages:
+- stage: Build
+  jobs:
+  - job: Build
+    steps:
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'VivaWalletProjects'
+        repository: 'vivawalletproject'
+        command: build
+        Dockerfile: '**/Dockerfile'
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: '**/test-results.xml'
 
-variables:
-  tag: '$(Build.BuildId)'
+- stage: Test
+  jobs:
+  - job: Test
+    steps:
+    - task: Python@2
+      inputs:
+        pythonInterpreter: '3.8'
+        scriptType: 'pylint'
+        scriptPath: 'src/**/*.py'
+    - task: Python@2
+      inputs:
+        pythonInterpreter: '3.8'
+        scriptType: 'unittest'
+        scriptPath: 'tests/**/*.py'
 
-steps:
-- task: Docker@2
-  inputs:
-    containerRegistry: 'VivaWalletProjects'
-    command: 'login'
+- stage: Deploy
+  dependsOn: Test
+  condition: succeeded()
+  jobs:
+  - job: Deploy
+    steps:
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'VivaWalletProjects'
+        repository: 'vivawalletproject'
+        command: push
+    - task: ManualIntervention@1
+      inputs:
+        actionName: 'Deploy to production'
+
+- stage: Approval
+  dependsOn: Deploy
+  condition: succeeded()
+  jobs:
+  - job: Approval
+    steps:
+    - task: Approval@2
+      inputs:
+        timeoutInMinutes: 30
+        target: 'production'
