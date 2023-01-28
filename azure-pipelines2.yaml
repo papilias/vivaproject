@@ -8,8 +8,14 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
       
+
 variables:
-  imageName: 'vivawalletproject:$(Build.BuildId)'      
+  - name: imageName
+    value: 'VivaImage'
+  - name: containerRegistry
+    value: 'VivaWalletProjects'
+  - name: repository
+    value: 'vivawalletproject'  
     steps:
 
     - script: |
