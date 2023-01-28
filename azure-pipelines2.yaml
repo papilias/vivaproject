@@ -11,8 +11,8 @@ stages:
     - task: Python@3
       inputs:
         version: '3.x'
-#    - script: |
-#        pip install -r requirements.txt
+    - script: |
+        pip install -r requirements.txt
       displayName: 'Install dependencies'
     - script: |
         python -m pytest -v --junitxml=results/test-results.xml
