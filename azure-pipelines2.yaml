@@ -20,7 +20,7 @@ stages:
         echo "Building the Docker image"
         docker build -t $(imageName) .
         echo "Running unit tests"
-        python -m unittest main.py
+        python -m unittest src/main.py
       displayName: 'Build and Test'
     - task: PublishTestResults@2
       inputs:
