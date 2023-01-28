@@ -7,20 +7,11 @@ stages:
   - job: Build
     pool:
       vmImage: 'ubuntu-latest'
-      
-
-variables:
-  - name: imageName
-    value: 'VivaImage'
-  - name: containerRegistry
-    value: 'VivaWalletProjects'
-  - name: repository
-    value: 'vivawalletproject'  
     steps:
-
     - script: |
         echo "Building the Docker image"
-        docker build -t $(imageName) .
+        imageName=VivaImage
+        docker build -t $imageName .
       displayName: 'Build Docker image'
     - task: Docker@2
       inputs:
