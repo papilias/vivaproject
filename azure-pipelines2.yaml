@@ -8,7 +8,7 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-#    - task: Python@3
+    - task: Python@3
       inputs:
         version: '3.x'
     - script: |
