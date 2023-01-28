@@ -14,9 +14,9 @@ stages:
 #    - script: |
 #        pip install -r requirements.txt
 #      displayName: 'Install dependencies'
-#    - script: |
-#        python -m pytest -v --junitxml=results/test-results.xml
-#      displayName: 'Run tests'
+    - script: |
+        python -m pytest -v --junitxml=results/test-results.xml
+      displayName: 'Run tests'
     - script: |
         echo "Building the Docker image"
         docker build -t $(imageName) .
