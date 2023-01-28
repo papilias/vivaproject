@@ -8,15 +8,15 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    - task: Python@3
-      inputs:
-        version: '3.x'
-    - script: |
-        pip install -r requirements.txt
-      displayName: 'Install dependencies'
-    - script: |
+#    - task: Python@3
+#      inputs:
+#        version: '3.x'
+#    - script: |
+#        pip install -r requirements.txt
+#      displayName: 'Install dependencies'
+#    - script: |
 #        python -m pytest -v --junitxml=results/test-results.xml
-      displayName: 'Run tests'
+#      displayName: 'Run tests'
     - script: |
         echo "Building the Docker image"
         docker build -t $(imageName) .
