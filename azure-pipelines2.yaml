@@ -7,6 +7,9 @@ stages:
   - job: Build
     pool:
       vmImage: 'ubuntu-latest'
+      
+variables:
+  imageName: 'vivawalletproject:$(Build.BuildId)'      
     steps:
 
     - script: |
