@@ -13,7 +13,7 @@ stages:
         version: '3.x'
 #    - script: |
 #        pip install -r requirements.txt
-#      displayName: 'Install dependencies'
+      displayName: 'Install dependencies'
     - script: |
         python -m pytest -v --junitxml=results/test-results.xml
       displayName: 'Run tests'
