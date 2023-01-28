@@ -1,6 +1,14 @@
 trigger:
 - main
 
+variables:
+  - name: imageName
+    value: 'VivaImage'
+  - name: containerRegistry
+    value: 'VivaWalletProjects'
+  - name: repository
+    value: 'vivawalletproject'
+
 stages:
 - stage: Build
   jobs:
@@ -21,15 +29,15 @@ stages:
     - task: Docker@2
       inputs:
         command: 'build'
-        containerRegistry: '$(VivaWalletProjects)'
-        repository: '$(vivawalletproject)'
+        containerRegistry: '$(containerRegistry)'
+        repository: '$(repository)'
         tags: '$(Build.BuildId)'
         Dockerfile: 'Dockerfile'
     - task: Docker@2
       inputs:
         command: 'push'
-        containerRegistry: '$(VivaWalletProjects)'
-        repository: '$(vivawalletproject)'
+        containerRegistry: '$(containerRegistry)'
+        repository: '$(repository)'
         tags: '$(Build.BuildId)'
 
 - stage: Deploy
@@ -63,7 +71,7 @@ stages:
                     spec:
                       containers:
                       - name: vivawalletproject
-                        image: '$(VivaWalletProjects)/$(vivawalletproject):$(Build.BuildId)'
+                        image: '$(containerRegistry)/$(repository):$(Build.BuildId)'
                         ports:
                         - containerPort: 80
           - task: Kubernetes@1
