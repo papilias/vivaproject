@@ -1,0 +1,80 @@
+trigger:
+- main
+
+stages:
+- stage: Build
+  jobs:
+  - job: Build
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: Python@3
+      inputs:
+        version: '3.x'
+    - script: |
+        pip install -r requirements.txt
+      displayName: 'Install dependencies'
+    - script: |
+        python -m pytest -v --junitxml=results/test-results.xml
+      displayName: 'Run tests'
+    - script: |
+        echo "Building the Docker image"
+        docker build -t $(imageName) .
+      displayName: 'Build Docker image'
+    - task: Docker@2
+      inputs:
+        command: 'push'
+        containerRegistry: 'VivaWalletProjects'
+        repository: 'vivawalletproject'
+        tags: '$(Build.BuildId)'
+
+- stage: Deploy
+  jobs:
+  - deployment: Deploy
+    pool:
+      vmImage: 'ubuntu-latest'
+    environment: 'production'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: Kubernetes@1
+            inputs:
+              command: 'apply'
+              namespace: 'default'
+              yaml: |
+                apiVersion: apps/v1
+                kind: Deployment
+                metadata:
+                  name: vivawalletproject-deployment
+                spec:
+                  replicas: 3
+                  selector:
+                    matchLabels:
+                      app: vivawalletproject
+                  template:
+                    metadata:
+                      labels:
+                        app: vivawalletproject
+                    spec:
+                      containers:
+                      - name: vivawalletproject
+                        image: 'VivaWalletProjects/vivawalletproject:$(Build.BuildId)'
+                        ports:
+                        - containerPort: 80
+          - task: Kubernetes@1
+            inputs:
+              command: 'apply'
+              namespace: 'default'
+              yaml: |
+                apiVersion: v1
+                kind: Service
+                metadata:
+                  name: vivawalletproject-service
+                spec:
+                  selector:
+                    app: vivawalletproject
+                  ports:
+                  - name: http
+                    port: 80
+                    targetPort: 80
