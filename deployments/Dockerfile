@@ -1,8 +1,6 @@
 # Use an official Python runtime as the base image
 FROM python:3.8-slim
 
-FROM ipapadod/vivawalletproject:vivaimage
-
 # Set the working directory
 WORKDIR /app
 
