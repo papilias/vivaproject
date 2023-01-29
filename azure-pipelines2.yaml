@@ -18,7 +18,7 @@ stages:
     steps:
     - script: |
         echo "Installing required packages"
-        pip install -r requirements.txt
+        pip install -r deployments/requirements.txt
     - script: |
         echo "Running test services"
         python -m unittest discover -p 'tests/test_*.py' -v
@@ -38,7 +38,7 @@ stages:
         containerRegistry: '$(containerRegistry)'
         repository: '$(repository)'
         tags: '$(Build.BuildId)'
-        Dockerfile: 'Dockerfile'
+        Dockerfile: 'deployments/Dockerfile'
     - task: Docker@2
       inputs:
         command: 'push'
