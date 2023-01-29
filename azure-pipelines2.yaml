@@ -3,7 +3,7 @@ trigger:
 
 variables:
   - name: imageName
-    value: 'VivaImage'
+    value: 'vivaimage'
   - name: containerRegistry
     value: 'VivaWalletProjects'
   - name: repository
