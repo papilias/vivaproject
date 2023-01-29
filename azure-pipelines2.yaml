@@ -5,7 +5,7 @@ variables:
   - name: imageName
     value: 'vivaimage'
   - name: containerRegistry
-    value: 'https://hub.docker.com/repository/docker/ipapadod/vivawalletproject/General'
+    value: 'vivawalletproject'
   - name: repository
     value: 'ipapadod/vivawalletproject'
 
