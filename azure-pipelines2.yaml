@@ -18,7 +18,13 @@ stages:
     steps:
     - script: |
         echo "Installing required packages"
+        python3 -m venv env
+        source env/bin/activate
         pip install -r deployments/requirements.txt
+    - script: |
+        echo "Testing the project"
+        python -m unittest discover -s src/ -p "*.py"
+      displayName: 'Test the project'    
     - script: |
         echo "Running test services"
         python -m unittest discover -p 'tests/test_*.py' -v
