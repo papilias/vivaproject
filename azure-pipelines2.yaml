@@ -45,7 +45,7 @@ stages:
         containerRegistry: '$(containerRegistry)'
         repository: '$(repository)'
         tags: '$(Build.BuildId)'
-        Dockerfile: 'Dockerfile'
+        Dockerfile: 'deployments/Dockerfile'
     - task: Docker@2
       inputs:
         command: 'push'
