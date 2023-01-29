@@ -8,8 +8,7 @@ variables:
     value: 'VivaWalletProjects'
   - name: repository
     value: 'vivawalletproject'
-  DockerUsername: ipapadod
-  DockerPassword: test
+
 
 stages:
 - stage: Build
