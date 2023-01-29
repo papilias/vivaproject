@@ -17,6 +17,12 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
     - script: |
+        echo "Installing required packages"
+        pip install -r requirements.txt
+    - script: |
+        echo "Running test services"
+        python -m unittest discover -p 'tests/test_*.py' -v
+    - script: |
         echo "Building the Docker image"
         docker build -t $(imageName) .
         echo "Running unit tests"
