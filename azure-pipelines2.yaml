@@ -8,6 +8,8 @@ variables:
     value: 'VivaWalletProjects'
   - name: repository
     value: 'vivawalletproject'
+  DockerUsername: ipapadod
+  DockerPassword: test
 
 stages:
 - stage: Build
@@ -44,7 +46,7 @@ stages:
         containerRegistry: '$(containerRegistry)'
         repository: '$(repository)'
         tags: '$(Build.BuildId)'
-        Dockerfile: 'deployments/Dockerfile'
+        Dockerfile: 'Dockerfile'
     - task: Docker@2
       inputs:
         command: 'push'
