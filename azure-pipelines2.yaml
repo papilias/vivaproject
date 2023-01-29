@@ -68,6 +68,22 @@ stages:
               command: 'apply'
               namespace: 'default'
               yaml: |
+                apiVersion: v1
+                kind: Service
+                metadata:
+                  name: vivawalletproject-service
+                spec:
+                  selector:
+                    app: vivawalletproject
+                  ports:
+                  - name: http
+                    port: 80
+                    targetPort: 80
+          - task: Kubernetes@1
+            inputs:
+              command: 'apply'
+              namespace: 'default'
+              yaml: |
                 apiVersion: apps/v1
                 kind: Deployment
                 metadata:
@@ -87,19 +103,3 @@ stages:
                         image: '$(containerRegistry)/$(repository):$(Build.BuildId)'
                         ports:
                         - containerPort: 80
-          - task: Kubernetes@1
-            inputs:
-              command: 'apply'
-              namespace: 'default'
-              yaml: |
-                apiVersion: v1
-                kind: Service
-                metadata:
-                  name: vivawalletproject-service
-                spec:
-                  selector:
-                    app: vivawalletproject
-                  ports:
-                  - name: http
-                    port: 80
-                    targetPort: 80
