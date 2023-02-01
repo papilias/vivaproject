@@ -9,7 +9,7 @@ variables:
   - name: repository
     value: 'ipapadod/vivawalletproject'
   - name: sshEndpoint
-    value: 'LocalVM'
+    value: 'test'
 
 
 stages:
