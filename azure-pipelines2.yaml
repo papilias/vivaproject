@@ -69,11 +69,11 @@ stages:
           - task: CopyFiles@2
             inputs:
               sourceFolder: '$(System.DefaultWorkingDirectory)'
-              targetFolder: '/home/testingsViva'
+              targetFolder: '/home/testings/Viva'
               cleanTargetFolder: true
               copyOptions: '-p'
               contents: |
-                myimage.tar
+                *
           - task: SSH@0
             inputs:
               sshEndpoint: '$(sshEndpoint)'
