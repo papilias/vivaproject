@@ -81,6 +81,7 @@ stages:
               commands:
               #scriptSource: 'inline'
               #inlineScript: |
+                pwd
                 sudo docker pull vivaimage
                 sudo docker run -d -p 59790:59790 vivaimage
                 #docker pull <image-name>:<image-tag>
