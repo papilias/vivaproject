@@ -82,7 +82,7 @@ stages:
                 sudo docker-compose up -d
 
 
-- stage: Deploy@1
+- stage: Deploy1
   jobs:
   - deployment: Deploy
     pool:
