@@ -8,6 +8,8 @@ variables:
     value: 'vivawalletproject'
   - name: repository
     value: 'ipapadod/vivawalletproject'
+    - name: repository
+    value: '127.0.0.1 59790'
 
 
 stages:
@@ -52,6 +54,33 @@ stages:
         containerRegistry: '$(containerRegistry)'
         repository: '$(repository)'
         tags: '$(Build.BuildId)'
+
+
+- stage: Deploy
+  jobs:
+  - deployment: Deploy
+    pool:
+      vmImage: 'ubuntu-latest'
+    environment: 'production'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: CopyFiles@2
+            inputs:
+              sourceFolder: 'deployments/'
+              targetFolder: '/home/user/'
+              cleanTargetFolder: true
+              copyOptions: '-p'
+              contents: |
+                docker-compose.yml
+          - task: SSH@0
+            inputs:
+              sshEndpoint: '$(sshEndpoint)'
+              scriptSource: 'inline'
+              inlineScript: |
+                sudo docker-compose up -d
+
 
 - stage: Deploy
   jobs:
