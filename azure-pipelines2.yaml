@@ -65,15 +65,7 @@ stages:
     strategy:
       runOnce:
         deploy:
-          steps:
-          - task: CopyFiles@2
-            inputs:
-              sourceFolder: 'deployments/'
-              targetFolder: '/home/user/'
-              cleanTargetFolder: true
-              copyOptions: '-p'
-              contents: |
-                docker-compose.yml
+          steps:          
           - task: SSH@0
             inputs:
               sshEndpoint: '$(sshEndpoint)'
