@@ -79,10 +79,12 @@ stages:
               sshEndpoint: '$(sshEndpoint)'
               scriptSource: 'inline'
               inlineScript: |
-                docker pull <image-name>:<image-tag>
-                docker tag <image-name>:<image-tag> <new-image-name>:<new-image-tag>
-                docker save -o <new-image-name>.tar <new-image-name>:<new-image-tag>
-                sudo docker-compose up -d
+                sudo docker pull vivaimage
+                sudo docker run -d -p 59790:59790 vivaimage
+                #docker pull <image-name>:<image-tag>
+                #docker tag <image-name>:<image-tag> <new-image-name>:<new-image-tag>
+                #docker save -o <new-image-name>.tar <new-image-name>:<new-image-tag>
+                #sudo docker-compose up -d
 
 
 - stage: Deploy1
