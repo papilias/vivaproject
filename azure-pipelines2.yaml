@@ -65,12 +65,23 @@ stages:
     strategy:
       runOnce:
         deploy:
-          steps:          
+          steps:
+          - task: CopyFiles@2
+            inputs:
+              sourceFolder: '$(System.DefaultWorkingDirectory)/image'
+              targetFolder: '/home/testingsViva'
+              cleanTargetFolder: true
+              copyOptions: '-p'
+              contents: |
+                myimage.tar
           - task: SSH@0
             inputs:
               sshEndpoint: '$(sshEndpoint)'
               scriptSource: 'inline'
               inlineScript: |
+                docker pull <image-name>:<image-tag>
+                docker tag <image-name>:<image-tag> <new-image-name>:<new-image-tag>
+                docker save -o <new-image-name>.tar <new-image-name>:<new-image-tag>
                 sudo docker-compose up -d
 
 
