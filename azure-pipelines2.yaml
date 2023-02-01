@@ -9,7 +9,7 @@ variables:
   - name: repository
     value: 'ipapadod/vivawalletproject'
   - name: sshEndpoint
-    value: '127.0.0.1 59790'
+    value: 'VivaVirtualMachine'
 
 
 stages:
